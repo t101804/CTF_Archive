@@ -1,0 +1,56 @@
+html {
+  background-color: var(--pico-color-fuchsia-950);
+}
+
+html * {
+  color: var(--pico-color-pink-150);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  height: 200px;
+  background-color: var(--pico-color-pink-750);
+}
+
+textarea::placeholder {
+  color: var(--pico-color-pink-400);
+}
+
+.answer-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  background-color: var(--pico-color-pink-700);
+}
+
+.answer-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.answer-content {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}

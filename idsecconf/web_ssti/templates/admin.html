@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4">Welcome, {{ user.username }}!</h1>
+        <p class="lead">Manage your site and access administrative features here.</p>
+        
+        <div class="form-group">
+            <label for="imageSelect">Healthy Image Check:</label>
+            <select id="imageSelect" class="form-control">
+                <option value="">-- Select an Image --</option>
+                <option value="images1.jpg">Image 1</option>
+                <option value="images2.jpg">Image 2</option>
+                <option value="images3.jpg">Image 3</option>
+                <option value="images4.jpg">Image 4</option>
+                <option value="images5.jpg">Image 5</option>
+                <option value="images6.jpg">Image 6</option>
+            </select>
+            <button id="checkButton" class="btn btn-primary mt-2">Check</button>
+        </div>
+
+        <div id="response" class="mt-3"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#checkButton').click(function() {
+            var selectedImage = $('#imageSelect').val();
+            if (selectedImage) {
+                $.ajax({
+                    url: '/check',
+                    method: 'POST',
+                    data: { filename: selectedImage },
+                    success: function(response) {
+                        $('#response').html('<p>' + response + '</p>');
+                    },
+                    error: function(xhr, status, error) {
+                        $('#response').html('<p>Error: ' + xhr.responseText + '</p>');
+                    }
+                });
+            } else {
+                alert('Please select an image.');
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question - Ask Astolfo Anything!</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  </head>
+  <body>
+    <h1>Question</h1>
+    <div id="question-content"><%- question.content %></div>
+    <% if (question.is_answered) { %>
+    <h2>Answer:</h2>
+    <div class="answer-box">
+      <div class="answer-container">
+        <img src="/astolfo.webp" alt="Astolfo's pfp" class="profile-picture" />
+        <div id="answer-content" class="answer-content">
+          <%- question.answer %>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (astolfoToken && !question.answer) { %>
+    <div id="adminAnswer" style="display: block">
+      <h3>Provide an Answer</h3>
+      <form action="/question/<%= question.id %>/answer" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <textarea name="answer" required></textarea>
+        <button
+          type="submit"
+          style="background-color: var(--pico-color-pink-400)"
+        >
+          Post Answer
+        </button>
+      </form>
+    </div>
+    <% } %>
+    <a href="/">Back to Questions</a>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\$$", "\$$"],
+          ],
+        },
+        startup: {
+          ready: () => {
+            MathJax.startup.defaultReady();
+            MathJax.startup.promise.then(() => {
+              const mjxElems = Array.from(
+                document.getElementsByTagName("mjx-math")
+              );
+              mjxElems.map(
+                (e) => (e.innerHTML = e.innerHTML.replaceAll("&quot;", '"'))
+              );
+              console.log("MathJax initial typesetting complete");
+            });
+          },
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+    ></script>
+  </body>
+</html>
